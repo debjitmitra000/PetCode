@@ -2,7 +2,7 @@
 
 > A virtual pet that lives inside your VS Code editor — reacts to your typing, errors, idle time, and even the hour of night.
 
-![CodePet demo](https://raw.githubusercontent.com/debjitmitra000/codepet/main/media/demo.gif)
+![CodePet demo](https://github.com/debjitmitra000/codepet/raw/main/media/demo.gif)
 
 ---
 
