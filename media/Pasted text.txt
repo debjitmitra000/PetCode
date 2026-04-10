@@ -1,0 +1,285 @@
+generate from gpt with this prompmt ===>
+I am building a VS Code pet extension called "codepet".
+
+I already created a pixel-art DOG character. I now want a **** in the EXACT SAME STYLE.
+
+STRICT STYLE RULES (must match the dog exactly):
+
+* Pixel art (visible pixels, not smooth drawing)
+* 1:1 square image
+* Character should occupy most of the canvas (minimal empty space)
+* SAME outline thickness and color
+* SAME shading style (soft highlights, not realistic)
+* SAME proportions (cute, big eyes, small body)
+* SAME color tone style (warm, soft colors)
+* Facing LEFT (important for animation system)
+
+IMPORTANT (do not ignore):
+
+* INCLUDE the same small ground shadow under the pet (like the dog images)
+* Keep lighting and shadow style identical
+* Match eye style exactly
+* use a solid bg color take a different varient of green than the grass for background i will remove manually later you no need to make transparent. it must be same at all place solid no grain or shades. 
+Character design:
+
+* Indian street-style *** (simple, not fancy breed)
+* Slim body (not fat)
+* Slightly sharp ears
+* Tail curved upward (thinner than dog but similar feel)
+* Same cute emotional style as dog
+
+I will also provide reference dog images. Use them STRICTLY to match style.
+
+create the base image for the **** from next one we will start creating versions of that in diff pos
+
+
+png bg remove ===> https://onlinepngtools.com/change-png-color
+png to svg 10 at a time ===> https://www.aconvert.com/image/png-to-svg/
+bulk image crop ===> https://batchimagecrop.com/
+svg resize height 19 px ===> https://www.iloveimg.com/resize-image/resize-svg
+
+
+🐶 IDLE — 2 frames
+What it represents: Dog is calm, waiting, doing nothing.
+Frame 1 — idle_1.png
+
+Body: sitting position, haunches on ground, front legs straight down
+Head: facing left, ears relaxed and drooping slightly
+Eyes: fully open, circular, a tiny white highlight dot in each
+Mouth: small closed smile curve
+Tail: curled up behind body, resting on ground
+Overall feeling: relaxed, alert
+
+Frame 2 — idle_2.png
+
+Everything identical to frame 1
+Eyes: half closed (top eyelid dropped halfway) — this is the blink
+The blink is the only difference between the two frames
+Swap at 800ms interval — slow blink looks natural
+
+
+🏃 RUNNING — 3 frames
+What it represents: Dog moving, user is typing.
+Frame 1 — run_1.png
+
+Body: horizontal, leaning forward at slight angle
+Front left leg: extended forward in the air
+Back right leg: extended backward in the air
+Front right leg: touching ground, bent at elbow
+Back left leg: touching ground, bent at knee
+Ears: both flying backward (wind effect) — pointing right
+Tail: straight out behind, pointing right, slightly upward
+Mouth: slightly open, tongue not visible yet
+Eyes: wide open, focused forward (left)
+
+Frame 2 — run_2.png
+
+Opposite leg positions from frame 1 (classic run cycle swap)
+Front right leg: extended forward in the air
+Back left leg: extended backward in the air
+Front left leg: touching ground
+Back right leg: touching ground
+Ears: still flying back
+Tail: same as frame 1
+Body slightly lower than frame 1 (mid-stride dip)
+
+Frame 3 — run_3.png
+
+Body at its lowest point, all four legs close to center under body
+This is the "gather" phase of the run cycle
+Ears still back
+Gives the illusion of bounding motion when looped 1→2→3→1
+
+Swap at 150–200ms. Feels fast and energetic.
+
+😄 HAPPY RUNNING — 2 frames
+What it represents: User has been typing for 10+ seconds, dog is excited.
+Frame 1 — happy_run_1.png
+
+Same running body position as run_1.png
+Key differences:
+Mouth: wide open, tongue hanging out to the left, wavy shape
+Eyes: curved upward (^_^ shape) instead of round — happy squint
+Tail: curved upward in a big arc over the back instead of straight out
+Small motion lines near tail to show wagging
+
+Frame 2 — happy_run_2.png
+
+Same running body as run_2.png
+Mouth: same happy open mouth with tongue
+Eyes: same happy squint
+Tail: same arc but slightly more to the left — tail wag captured mid-swing
+The tail position difference between frame 1 and 2 creates the wag illusion
+
+Swap at 150ms — same speed as running.
+
+🔊 BARK — 2 frames
+What it represents: User clicked the pet or just fixed all errors.
+Frame 1 — bark_1.png
+
+Body: sitting upright, chest puffed slightly forward
+Head: facing left, lifted slightly upward (looking up as dogs do when barking)
+Mouth: CLOSED — this is the "inhale" frame before the bark
+Eyes: wide open, alert
+Ears: perked straight up — fully erect
+Tail: raised upward, wagging up position
+
+Frame 2 — bark_2.png
+
+Body: same sitting position but leaning slightly forward
+Head: same direction, mouth now WIDE open — big open circle shape
+Inside mouth: small tongue visible at bottom
+Eyes: slightly squinted from the effort of barking
+Ears: still erect
+Tail: wagging down position (opposite of frame 1)
+Add 2–3 small curved lines in front of mouth (sound waves / bark lines)
+
+Swap at 200ms. Plays for 1200ms total then returns to previous state.
+
+😴 SLEEPING — 2 frames
+What it represents: No activity for 60 seconds.
+Frame 1 — sleep_1.png
+
+Body: lying down completely flat on side or curled into a ball
+Curled ball is cuter — nose tucked toward tail
+Head: resting on front paws, eyes completely closed
+Ears: relaxed, flopped down
+Tail: curled around body
+Above head: the letter Z in a small speech-bubble style, small size
+
+Frame 2 — sleep_2.png
+
+Identical body position
+The Z above head is slightly larger and higher than frame 1
+This creates the floating Z animation — Z grows then resets
+
+Swap at 1000ms — very slow, peaceful.
+
+😟 WORRIED — 1 frame (static)
+What it represents: There are errors in the file (1–9 errors).
+worried.png
+
+Body: sitting, but hunched — shoulders (front legs) pulled inward
+Head: tilted slightly to one side (left tilt — classic dog confusion pose)
+Eyes: eyebrows (small curved lines above eyes) angled inward-downward — worried frown shape
+One eye slightly larger than the other (adds to worried look)
+Mouth: small downward curve — frown
+Ears: one ear up, one ear flopped down — asymmetric = anxious
+Tail: tucked low, curled under body between legs
+Small sweat drop on side of head (single teardrop shape, light blue)
+
+Static image, no animation needed. The movement to the error line is what makes it feel alive.
+
+😱 SCARED — 2 frames
+What it represents: More than 10 errors in the file.
+Frame 1 — scared_1.png
+
+Body: sitting but crouched very low, body compressed downward
+Head: pulled down into shoulders
+Eyes: huge, perfectly round, whites of eyes showing all around iris — pure fear look
+Mouth: wide open in a shocked O shape
+Ears: flat against head, pointing backward
+Tail: completely tucked under body, invisible
+Fur/body outline: slightly jagged/spiky to suggest trembling
+
+Frame 2 — scared_2.png
+
+Everything same as frame 1
+Body shifted 1–2 pixels to the right
+This tiny shift creates a shaking/trembling effect when alternated rapidly
+
+Swap at 100ms — fast trembling looks like genuine shaking.
+
+🌙 NIGHT IDLE — 2 frames
+What it represents: Current time is between midnight and 5am.
+Frame 1 — night_idle_1.png
+
+Same sitting pose as regular idle
+Eyes: half-lidded (drooping heavily, more than the regular blink — these are sleepy eyes, not a blink)
+Small dark circles suggested under eyes
+Overall color palette slightly desaturated/cooler tones — muted blues
+A tiny crescent moon shape floating above the head (top right area)
+
+Frame 2 — night_idle_2.png
+
+Same body
+Eyes: fully closed now (opposite of frame 1 — they slowly open and close)
+The moon stays in the same position
+Creates a heavy, slow blinking effect — struggling to stay awake
+
+Swap at 1200ms — slower than regular idle, feels drowsy.
+
+⬆️ JUMPING — 3 frames
+What it represents: New file was opened.
+Frame 1 — jump_1.png
+
+Body: crouching DOWN — this is the pre-jump squat
+All four legs bent, body low to the ground
+Head looking forward (left)
+Ears pressed back against head in anticipation
+Tail straight out behind
+
+Frame 2 — jump_2.png
+
+Body: fully airborne, at the peak of the jump
+All four legs tucked under body (mid-air pose)
+Ears flying upward (wind from jumping)
+Eyes wide open with excitement
+Tail curled upward
+Body rotated very slightly — 5 degrees tilt — adds energy
+2–3 small star or sparkle shapes around the body
+
+Frame 3 — jump_3.png
+
+Body: landing position — front legs extended downward touching ground
+Back legs still in air, about to land
+Body leaning slightly forward from momentum
+Ears flopping forward
+Tail flicking upward from the landing impact
+
+Plays frame 1 → 2 → 3 → then stops and returns to previous state. Does not loop. Total duration 1500ms, so about 500ms per frame.
+
+😩 TIRED — 1 frame (static)
+What it represents: 2 hours of continuous coding.
+tired.png
+
+Body: sitting but slumped — spine curved, not upright
+Head: drooping forward and downward, chin almost touching chest
+Eyes: barely open — just thin horizontal slits
+Mouth: slightly open, small exhausted expression
+Ears: completely drooped down on both sides
+Tail: lying flat on ground, no energy to hold it up
+Three small dots ... near the head or a wilting flower above head (optional)
+Color: slightly desaturated compared to other frames
+
+Static image. Dog completely stops moving when this triggers. A tooltip appears instead.
+
+
+├── bark_1.png
+├── bark_2.png
+├── happy_run_1.png
+├── happy_run_1_rotated.png
+├── happy_run_2.png
+├── happy_run_2_rotated.png
+├── idle_1.png
+├── idle_2.png
+├── jump_1.png
+├── jump_1_rotated.png
+├── jump_2.png
+├── jump_2_rotated.png
+├── jump_3.png
+├── jump_3_rotated.png
+├── night_idle_1.png
+├── night_idle_2.png
+├── run_1.png
+├── run_1_rotated.png
+├── run_2.png
+├── run_2_rotated.png
+├── run_3.png
+├── run_3_rotated.png
+├── scared_1.png
+├── scared_2.png
+├── sleep_1.png
+├── sleep_2.png
+├── tired.png
+└── worried.png

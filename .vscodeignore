@@ -1,0 +1,10 @@
+# Exclude source TypeScript — only compiled JS in out/ is needed
+src/**
+tsconfig.json
+
+# Exclude dev dependencies and lock file
+node_modules/**
+package-lock.json
+
+# Exclude test files
+.vscode-test/**
