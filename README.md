@@ -70,7 +70,7 @@ Click the **🐾 CodePet** item in your status bar to open the quick-pick menu. 
 
 ## Installation
 
-Search for **CodePet** in the Extensions panel (`Ctrl+Shift+X`) and click Install, or install from the [marketplace page](https://marketplace.visualstudio.com/items?itemName=YOUR_PUBLISHER.codepet).
+Search for **CodePet** in the Extensions panel (`Ctrl+Shift+X`) and click Install, or install from the [marketplace page](https://marketplace.visualstudio.com/items?itemName=debjitmitra000.codepet).
 
 ---
 
