@@ -1,6 +1,6 @@
 {
-  "name": "codepet",
-  "displayName": "CodePet",
+  "name": "petcode-debjitmitra000",
+  "displayName": "PetCode",
   "description": "A virtual pet that lives inside your VS Code editor — reacts to your typing, errors, idle time, and even the hour of night.",
   "version": "0.1.0",
   "publisher": "debjitmitra000",
@@ -28,11 +28,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/codepet"
+    "url": "https://github.com/debjitmitra000/PetCode"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/codepet#readme",
+  "homepage": "https://github.com/debjitmitra000/PetCode#readme",
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/codepet/issues"
+    "url": "https://github.com/debjitmitra000/PetCode/issues"
   },
   "qna": "marketplace",
   "activationEvents": ["onStartupFinished"],
@@ -40,34 +40,34 @@
   "contributes": {
     "icons": {
       "paw-icon": {
-        "description": "CodePet paw icon",
+        "description": "PetCode paw icon",
         "default": {
-          "fontPath": "./media/codepet-icons.woff",
+          "fontPath": "./media/petcode-icons.woff",
           "fontCharacter": "\\E000"
         }
       },
       "dog-icon": {
-        "description": "CodePet dog icon",
+        "description": "PetCode dog icon",
         "default": {
-          "fontPath": "./media/codepet-icons.woff",
+          "fontPath": "./media/petcode-icons.woff",
           "fontCharacter": "\\E001"
         }
       },
       "cat-icon": {
-        "description": "CodePet cat icon",
+        "description": "PetCode cat icon",
         "default": {
-          "fontPath": "./media/codepet-icons.woff",
+          "fontPath": "./media/petcode-icons.woff",
           "fontCharacter": "\\E002"
         }
       }
     },
     "commands": [
-      { "command": "codepet.bark",      "title": "CodePet: Make your pet bark" },
-      { "command": "codepet.toggle",    "title": "CodePet: Toggle pet visibility" },
-      { "command": "codepet.openPanel", "title": "CodePet: Open settings" }
+      { "command": "PetCode.bark",      "title": "PetCode: Make your pet bark" },
+      { "command": "PetCode.toggle",    "title": "PetCode: Toggle pet visibility" },
+      { "command": "PetCode.openPanel", "title": "PetCode: Open settings" }
     ],
     "keybindings": [
-      { "command": "codepet.bark", "key": "ctrl+alt+b", "mac": "cmd+alt+b" }
+      { "command": "PetCode.bark", "key": "ctrl+alt+b", "mac": "cmd+alt+b" }
     ]
   },
   "scripts": {

@@ -1,14 +1,14 @@
-# CodePet 🐾
+# PetCode 🐾
 
 > A virtual pet that lives inside your VS Code editor — reacts to your typing, errors, idle time, and even the hour of night.
 
-![CodePet demo](https://github.com/debjitmitra000/codepet/raw/main/media/demo.gif)
+![PetCode demo](https://github.com/debjitmitra000/PetCode/raw/main/media/demo.gif)
 
 ---
 
-## What is CodePet?
+## What is PetCode?
 
-CodePet is a tiny animated dog or cat that sits at the end of your cursor line and reacts to everything you do in real time. Type a lot and it runs happily alongside you. Leave it alone and it wanders around, fidgets, and eventually falls asleep. Rack up errors and it gets worried — then scared. Fix them all and it celebrates with a bark.
+PetCode is a tiny animated dog or cat that sits at the end of your cursor line and reacts to everything you do in real time. Type a lot and it runs happily alongside you. Leave it alone and it wanders around, fidgets, and eventually falls asleep. Rack up errors and it gets worried — then scared. Fix them all and it celebrates with a bark.
 
 It lives entirely inside the editor as a text decoration — no panels, no sidebars, no popups.
 
@@ -33,9 +33,9 @@ It lives entirely inside the editor as a text decoration — no panels, no sideb
 
 | Command | Keybinding | Description |
 |---|---|---|
-| `CodePet: Make your pet bark` | `Ctrl+Alt+B` / `Cmd+Alt+B` | Triggers a bark animation |
-| `CodePet: Toggle pet visibility` | — | Show or hide the pet |
-| `CodePet: Open settings` | Click the status bar item | Opens the settings menu |
+| `PetCode: Make your pet bark` | `Ctrl+Alt+B` / `Cmd+Alt+B` | Triggers a bark animation |
+| `PetCode: Toggle pet visibility` | — | Show or hide the pet |
+| `PetCode: Open settings` | Click the status bar item | Opens the settings menu |
 
 ---
 
@@ -60,7 +60,7 @@ It lives entirely inside the editor as a text decoration — no panels, no sideb
 
 ## Settings Menu
 
-Click the **🐾 CodePet** item in your status bar to open the quick-pick menu. From there you can:
+Click the **🐾 PetCode** item in your status bar to open the quick-pick menu. From there you can:
 
 - Show or hide the pet
 - Switch between dog and cat
@@ -70,7 +70,7 @@ Click the **🐾 CodePet** item in your status bar to open the quick-pick menu. 
 
 ## Installation
 
-Search for **CodePet** in the Extensions panel (`Ctrl+Shift+X`) and click Install, or install from the [marketplace page](https://marketplace.visualstudio.com/items?itemName=debjitmitra000.codepet).
+Search for **PetCode** in the Extensions panel (`Ctrl+Shift+X`) and click Install, or install from the [marketplace page](https://marketplace.visualstudio.com/items?itemName=debjitmitra000.PetCode).
 
 ---
 

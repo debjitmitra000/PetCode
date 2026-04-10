@@ -4,24 +4,24 @@ import { Pet } from './pet/Pet';
 let pet: Pet | null = null;
 
 export function activate(context: vscode.ExtensionContext): void {
-  vscode.window.showInformationMessage('🐾 CodePet is alive!');
+  vscode.window.showInformationMessage('🐾 PetCode is alive!');
 
   pet = new Pet(context);
   pet.start();
 
   // ── Commands ──────────────────────────────────────────────────
 
-  const barkCmd = vscode.commands.registerCommand('codepet.bark', () => {
+  const barkCmd = vscode.commands.registerCommand('PetCode.bark', () => {
     pet?.triggerBark();
     vscode.window.setStatusBarMessage('🐾 WOOF!', 2000);
   });
 
-  const toggleCmd = vscode.commands.registerCommand('codepet.toggle', () => {
+  const toggleCmd = vscode.commands.registerCommand('PetCode.toggle', () => {
     pet?.toggle();
   });
 
   // Opens the QuickPick settings menu
-  const openPanelCmd = vscode.commands.registerCommand('codepet.openPanel', () => {
+  const openPanelCmd = vscode.commands.registerCommand('PetCode.openPanel', () => {
     pet?.openPanel();
   });
 

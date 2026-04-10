@@ -2,9 +2,23 @@
 src/**
 tsconfig.json
 
-# Exclude dev dependencies and lock file
+# Exclude dev dependencies
 node_modules/**
 package-lock.json
 
 # Exclude test files
 .vscode-test/**
+
+# 🚨 Exclude heavy assets (THIS WAS MISSING)
+images/**
+icons/**
+
+# Exclude git stuff
+.git
+.gitignore
+
+# Optional: exclude docs
+*.md
+deploy.md
+filetree.md
+changelog.md

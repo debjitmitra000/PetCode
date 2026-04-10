@@ -83,7 +83,7 @@ export class Pet {
       vscode.StatusBarAlignment.Right, 100
     );
     this.syncStatusBar();
-    this.statusBarItem.command = 'codepet.openPanel';
+    this.statusBarItem.command = 'PetCode.openPanel';
     this.statusBarItem.show();
   }
 
@@ -204,11 +204,11 @@ export class Pet {
   private syncStatusBar(): void {
     const petLabel = this.animationManager.getPetType() === 'cat' ? 'Cat' : 'Dog';
     this.statusBarItem.text    = this.context.isVisible
-      ? '$(paw-icon) CodePet'
-      : '$(paw-icon) CodePet·';
+      ? '$(paw-icon) PetCode'
+      : '$(paw-icon) PetCode·';
     this.statusBarItem.tooltip = this.context.isVisible
-      ? `CodePet [${petLabel}] — click to open settings`
-      : `CodePet [${petLabel}] hidden — click to open settings`;
+      ? `PetCode [${petLabel}] — click to open settings`
+      : `PetCode [${petLabel}] hidden — click to open settings`;
   }
 
   // ── External events ───────────────────────────────────────────────────────────

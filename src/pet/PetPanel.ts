@@ -55,7 +55,7 @@ export class PetPanel {
     ];
 
     const pick = await vscode.window.showQuickPick(items, {
-      title:              '$(paw-icon) CodePet',
+      title:              '$(paw-icon) PetCode',
       placeHolder:        'What would you like to do?',
       matchOnDescription: true,
     });
@@ -65,7 +65,7 @@ export class PetPanel {
     switch (pick.action) {
       case 'toggle': this.onToggle?.();          break;
       case 'switch': await this.showPetPicker(); break;
-      case 'bark':   vscode.commands.executeCommand('codepet.bark'); break;
+      case 'bark':   vscode.commands.executeCommand('PetCode.bark'); break;
     }
   }
 
@@ -88,7 +88,7 @@ export class PetPanel {
     ];
 
     const pick = await vscode.window.showQuickPick(pets, {
-      title:       '$(paw-icon) CodePet — Choose your companion',
+      title:       '$(paw-icon) PetCode — Choose your companion',
       placeHolder: 'Select a companion',
     });
 
