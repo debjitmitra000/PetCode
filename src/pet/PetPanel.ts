@@ -26,9 +26,16 @@ export class PetPanel {
   // ── Main menu ─────────────────────────────────────────────────────────────────
 
   private async showMenu(): Promise<void> {
-    // $(dog-icon) / $(cat-icon) = your contributed woff icons (U+E001 / U+E002)
+    // $(dog-icon) = U+E001, $(cat-icon) = U+E002, $(cow-icon) = U+E003
     // $(paw-icon) = U+E000, used for the menu title and status bar
-    const petIcon = this.currentPet === 'cat' ? '$(cat-icon)' : '$(dog-icon)';
+    let petIcon: string;
+    if (this.currentPet === 'cat') {
+      petIcon = '$(cat-icon)';
+    } else if (this.currentPet === 'cow') {
+      petIcon = '$(cow-icon)';
+    } else {
+      petIcon = '$(dog-icon)';
+    }
 
     type Item = vscode.QuickPickItem & { action: string };
 
@@ -84,6 +91,11 @@ export class PetPanel {
         label:       '$(cat-icon)  Cat',
         description: this.currentPet === 'cat' ? '$(check) Active' : '',
         petId:       'cat',
+      },
+      {
+        label:       '$(cow-icon)  Cow',
+        description: this.currentPet === 'cow' ? '$(check) Active' : '',
+        petId:       'cow',
       },
     ];
 

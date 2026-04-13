@@ -7,6 +7,19 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [0.1.4] - 2026-04-14
+
+### Added
+
+- 🐄 **Cow companion** — a fully animated cow with all 28 state frames (idle, run, happy run, bark, sleep, jump, scared, worried, tired, night idle, and all rotated variants)
+- `cow-icon` contributed to the VS Code icon font at `U+E003` in `petcode-icons.woff`
+- Cow-aware hover message: shows 🐄 emoji and "MOO MOO!" in the barking state
+- Cow option in the pet picker submenu with `$(cow-icon)` label
+- Status bar tooltip correctly shows "Cow" when the cow is selected
+- Added `cow` to marketplace keywords
+
+---
+
 ## [0.1.0] - 2026-04-10
 
 ### Added

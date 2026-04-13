@@ -8,7 +8,7 @@
 
 ## What is PetCode?
 
-PetCode is a tiny animated dog or cat that sits at the end of your cursor line and reacts to everything you do in real time. Type a lot and it runs happily alongside you. Leave it alone and it wanders around, fidgets, and eventually falls asleep. Rack up errors and it gets worried — then scared. Fix them all and it celebrates with a bark.
+PetCode is a tiny animated companion that sits at the end of your cursor line and reacts to everything you do in real time. Type a lot and it runs happily alongside you. Leave it alone and it wanders around, fidgets, and eventually falls asleep. Rack up errors and it gets worried — then scared. Fix them all and it celebrates with a bark (or a moo 🐄).
 
 It lives entirely inside the editor as a text decoration — no panels, no sidebars, no popups.
 
@@ -16,7 +16,7 @@ It lives entirely inside the editor as a text decoration — no panels, no sideb
 
 ## Features
 
-- 🐕🐱 **Dog or cat** — switch your companion any time from the settings menu
+- 🐕🐱🐄 **Dog, cat, or cow** — switch your companion any time from the settings menu
 - 🏃 **Follows your cursor** — moves line by line as you navigate
 - ✨ **Happy running** — gets excited when you type for 4+ seconds straight
 - 😱 **Scared of errors** — reacts as your error count climbs
@@ -63,14 +63,14 @@ It lives entirely inside the editor as a text decoration — no panels, no sideb
 Click the **🐾 PetCode** item in your status bar to open the quick-pick menu. From there you can:
 
 - Show or hide the pet
-- Switch between dog and cat
+- Switch between dog, cat, and cow
 - Trigger a bark
 
 ---
 
 ## Installation
 
-Search for **PetCode** in the Extensions panel (`Ctrl+Shift+X`) and click Install, or install from the [marketplace page](https://marketplace.visualstudio.com/items?itemName=debjitmitra000.PetCode).
+Search for **PetCode** in the Extensions panel (`Ctrl+Shift+X`) and click Install, or install from the [marketplace page](https://marketplace.visualstudio.com/items?itemName=debjitmitra000.petcode-debjitmitra000&ssr=false#overview).
 
 ---
 

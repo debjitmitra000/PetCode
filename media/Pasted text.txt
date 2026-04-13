@@ -34,8 +34,8 @@ create the base image for the **** from next one we will start creating versions
 
 
 png bg remove ===> https://onlinepngtools.com/change-png-color
-png to svg 10 at a time ===> https://www.aconvert.com/image/png-to-svg/
 bulk image crop ===> https://batchimagecrop.com/
+png to svg 10 at a time ===> https://www.aconvert.com/image/png-to-svg/
 svg resize height 19 px ===> https://www.iloveimg.com/resize-image/resize-svg
 
 

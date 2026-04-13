@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { PetState } from './PetState';
 
-export type PetType = 'dog' | 'cat';
+export type PetType = 'dog' | 'cat' | 'cow';
 
 // Normal frames (facing left — default direction)
 const SVG_FRAMES: Record<PetState, string[]> = {

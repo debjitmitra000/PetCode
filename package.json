@@ -2,7 +2,7 @@
   "name": "petcode-debjitmitra000",
   "displayName": "PetCode",
   "description": "A virtual pet that lives inside your VS Code editor — reacts to your typing, errors, idle time, and even the hour of night.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "debjitmitra000",
   "icon": "icon.png",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "pet",
     "dog",
     "cat",
+    "cow",
     "tamagotchi",
     "companion",
     "animation",
@@ -58,6 +59,13 @@
         "default": {
           "fontPath": "./media/petcode-icons.woff",
           "fontCharacter": "\\E002"
+        }
+      },
+      "cow-icon": {
+        "description": "PetCode cow icon",
+        "default": {
+          "fontPath": "./media/petcode-icons.woff",
+          "fontCharacter": "\\E003"
         }
       }
     },

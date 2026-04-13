@@ -202,7 +202,8 @@ export class Pet {
   // ── Status bar ────────────────────────────────────────────────────────────────
 
   private syncStatusBar(): void {
-    const petLabel = this.animationManager.getPetType() === 'cat' ? 'Cat' : 'Dog';
+    const petType = this.animationManager.getPetType();
+    const petLabel = petType === 'cat' ? 'Cat' : petType === 'cow' ? 'Cow' : 'Dog';
     this.statusBarItem.text    = this.context.isVisible
       ? '$(paw-icon) PetCode'
       : '$(paw-icon) PetCode·';
@@ -602,13 +603,21 @@ export class Pet {
 
   private getHoverMessage(): string {
     const petType = this.animationManager.getPetType();
-    const icon    = petType === 'cat' ? '🐱' : '🐶';
+    let icon: string;
+    if (petType === 'cat') {
+      icon = '🐱';
+    } else if (petType === 'cow') {
+      icon = '🐄';
+    } else {
+      icon = '🐶';
+    }
+    const barkSound = petType === 'cow' ? 'MOO MOO!' : 'WOOF WOOF!';
     const messages: Record<PetState, string> = {
       idle:          `${icon} Just chilling... Press Ctrl+Alt+B to make me bark!`,
       night_idle:    '🌙 Late night coding? Please take care of yourself...',
       running:       `${icon} Running alongside your code!`,
       happy_running: `${icon}✨ You're on a roll! Keep going!`,
-      barking:       `${icon} WOOF WOOF!`,
+      barking:       `${icon} ${barkSound}`,
       sleeping:      '💤 Zzz... (start typing to wake me up)',
       worried:       `😟 There are errors... I'm worried.`,
       scared:        '😱 TOO MANY ERRORS! I\'m hiding!',
