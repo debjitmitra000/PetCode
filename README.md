@@ -16,14 +16,17 @@ It lives entirely inside the editor as a text decoration — no panels, no sideb
 
 ## Features
 
-- 🐕🐱🐄 **Dog, cat, or cow** — switch your companion any time from the settings menu
-- 🏃 **Follows your cursor** — moves line by line as you navigate
+- 🐕🐱🐄🐒 **Dog, cat, cow, or monkey** — switch your companion any time from the settings menu
+- 💾 **Remembers your pet** — your chosen pet and name persist across VS Code restarts
+- 🏃 **Follows your cursor** — moves smoothly line by line as you navigate
 - ✨ **Happy running** — gets excited when you type for 4+ seconds straight
 - 😱 **Scared of errors** — reacts as your error count climbs
 - 🎉 **Barks when errors clear** — celebrates when you fix all the bugs
 - 💤 **Falls asleep** — naps after ~25 seconds of inactivity
 - 🌙 **Night mode** — switches to a calm idle between 4–6 AM
 - 🐾 **Wanders & hops** — starts exploring your file when bored
+- 🏷️ **Name your pet** — give your companion a custom name
+- 📊 **Live status bar** — shows your pet's current state emoji in real time
 - 🔇 **Toggle on/off** — hide when you need to focus
 - 🔕 **Auto-hides during debug sessions** — stays out of the way when you're debugging
 
@@ -63,7 +66,8 @@ It lives entirely inside the editor as a text decoration — no panels, no sideb
 Click the **🐾 PetCode** item in your status bar to open the quick-pick menu. From there you can:
 
 - Show or hide the pet
-- Switch between dog, cat, and cow
+- Switch between dog, cat, cow, and monkey
+- Name your pet
 - Trigger a bark
 
 ---

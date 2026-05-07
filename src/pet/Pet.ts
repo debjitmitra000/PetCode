@@ -27,12 +27,18 @@ export class Pet {
   private animationManager: AnimationManager;
   private movementManager:  MovementManager;
   private petPanel:         PetPanel;
+  private extensionContext: vscode.ExtensionContext;
 
   private decorationType:       vscode.TextEditorDecorationType;
   private wanderDecorationType: vscode.TextEditorDecorationType;
   private lastRenderedPath: string = '';
 
   private statusBarItem: vscode.StatusBarItem;
+
+  // "click" detection — bark when cursor lands exactly on the pet
+  private lastCursorCol: number = -1;
+  // pet name — set by user, shown in hover messages
+  private petName: string = '';
 
   private animationTimer:      number | null = null;
   private movementTimer:       number | null = null;
@@ -58,12 +64,20 @@ export class Pet {
   private hopDoneCallback:         (() => void) | null = null;
 
   constructor(extensionContext: vscode.ExtensionContext) {
-    this.animationManager = new AnimationManager(extensionContext.extensionPath, 'dog');
+    this.extensionContext = extensionContext;
+
+    // Restore the last selected pet type across sessions
+    const savedPet = extensionContext.globalState.get<PetType>('petType', 'dog');
+    this.animationManager = new AnimationManager(extensionContext.extensionPath, savedPet);
     this.movementManager  = new MovementManager();
     this.petPanel         = new PetPanel(extensionContext.extensionPath);
 
     this.petPanel.onToggle    = () => this.toggle();
     this.petPanel.onSwitchPet = (pet) => this.setPetType(pet);
+    this.petPanel.onRename    = () => this.renamePet();
+
+    // Restore saved pet name
+    this.petName = extensionContext.globalState.get<string>('petName', '');
 
     this.context = {
       state:              'idle',
@@ -169,6 +183,7 @@ export class Pet {
 
   setPetType(pet: PetType): void {
     this.animationManager.setPetType(pet);
+    this.extensionContext.globalState.update('petType', pet);
     this.syncStatusBar();
     this.petPanel.pushState(pet, this.context.isVisible);
     this.lastRenderedPath = '';
@@ -202,14 +217,31 @@ export class Pet {
   // ── Status bar ────────────────────────────────────────────────────────────────
 
   private syncStatusBar(): void {
-    const petType = this.animationManager.getPetType();
-    const petLabel = petType === 'cat' ? 'Cat' : petType === 'cow' ? 'Cow' : 'Dog';
-    this.statusBarItem.text    = this.context.isVisible
-      ? '$(paw-icon) PetCode'
-      : '$(paw-icon) PetCode·';
+    const petType  = this.animationManager.getPetType();
+    // CHANGE 1: added monkey to petLabel
+    const petLabel = petType === 'cat' ? 'Cat' : petType === 'cow' ? 'Cow' : petType === 'monkey' ? 'Monkey' : 'Dog';
+    const name     = this.petName ? this.petName : petLabel;
+
+    const stateEmoji: Record<PetState, string> = {
+      idle:          '😊',
+      night_idle:    '🌙',
+      running:       '🏃',
+      happy_running: '✨',
+      barking:       '📣',
+      sleeping:      '💤',
+      worried:       '😟',
+      scared:        '😱',
+      tired:         '😩',
+      jumping:       '🐾',
+    };
+    const emoji = this.context.isVisible
+      ? (stateEmoji[this.context.state] ?? '😊')
+      : '·';
+
+    this.statusBarItem.text    = `$(paw-icon) ${name} ${emoji}`;
     this.statusBarItem.tooltip = this.context.isVisible
-      ? `PetCode [${petLabel}] — click to open settings`
-      : `PetCode [${petLabel}] hidden — click to open settings`;
+      ? `PetCode [${name}] — click to open settings`
+      : `PetCode [${name}] hidden — click to open settings`;
   }
 
   // ── External events ───────────────────────────────────────────────────────────
@@ -227,6 +259,34 @@ export class Pet {
 
   onCursorMove(editor: vscode.TextEditor): void {
     this.context.lastActivityTime = Date.now();
+
+    // ── Click detection: cursor lands on the pet's position → bark ───────────
+    const petLine   = this.movementManager.getCurrentLine();
+    const cursorPos = editor.selection.active;
+
+    if (cursorPos.line === petLine && this.context.isVisible) {
+      const lineLen   = editor.document.lineAt(petLine).text.length;
+      const petCol    = lineLen + 1;                      // pet sits just past EOL
+      const cursorCol = cursorPos.character;
+      const prevCol   = this.lastCursorCol;
+      this.lastCursorCol = cursorCol;
+
+      // Trigger when cursor jumps to or past the pet column (new arrival only)
+      if (cursorCol >= petCol && prevCol < petCol && this.temporaryStateTimer === null) {
+        this.triggerBark();
+        // CHANGE 2: added monkey bark message
+        const petType = this.animationManager.getPetType();
+        const msg = petType === 'cat'    ? '🐱 ...fine.'
+                  : petType === 'cow'    ? '🐄 MOOOO!'
+                  : petType === 'monkey' ? '🐒 OOH OOH AHH!'
+                  :                       '🐶 WOOF!';
+        vscode.window.setStatusBarMessage(msg, 2000);
+        return;
+      }
+    } else {
+      this.lastCursorCol = -1;
+    }
+
     if (this.wanderPhase === 'none' && !this.isHopping) {
       this.movementManager.followCursor(editor);
     }
@@ -570,8 +630,21 @@ export class Pet {
     if (!editor) { return; }
     const state = this.context.state;
     if (state === 'tired' || state === 'scared' || state === 'sleeping') { return; }
-    if (state === 'worried') { this.movementManager.moveToFirstError(editor); return; }
+
+    if (state === 'worried') {
+      this.movementManager.moveToFirstError(editor);
+      return;
+    }
+
+    // Smooth follow: set target, step toward it
     this.movementManager.followCursor(editor);
+    const wasMoving = this.movementManager.isMoving();
+    this.movementManager.tickFollow();
+
+    // Face the direction of travel when cursor-following (not during wander — wander handles its own direction)
+    if (wasMoving && this.wanderPhase === 'none' && !this.isHopping) {
+      this.animationManager.setDirection(!this.movementManager.isMovingUp());
+    }
   }
 
   private setState(newState: PetState): void {
@@ -580,6 +653,7 @@ export class Pet {
       this.context.state         = newState;
       if (!this.isHopping) { this.animationManager.resetFrame(); }
       this.lastRenderedPath = '';
+      this.syncStatusBar();
     }
   }
 
@@ -592,39 +666,102 @@ export class Pet {
     this.context.state         = state;
     this.animationManager.resetFrame();
     this.lastRenderedPath = '';
+    this.syncStatusBar();
     const duration = STATE_DURATIONS[state] ?? 1000;
     this.temporaryStateTimer = _setTimeout(() => {
       this.context.state       = this.context.previousState;
       this.temporaryStateTimer = null;
       this.animationManager.resetFrame();
       this.lastRenderedPath = '';
+      this.syncStatusBar();
     }, duration);
   }
 
   private getHoverMessage(): string {
     const petType = this.animationManager.getPetType();
-    let icon: string;
+    const state   = this.context.state;
+    const name    = this.petName;
+
+    // Each pet has its own voice
     if (petType === 'cat') {
-      icon = '🐱';
-    } else if (petType === 'cow') {
-      icon = '🐄';
-    } else {
-      icon = '🐶';
+      const messages: Record<PetState, string> = {
+        idle:          `🐱 ${name ? `${name} stares into the void.` : '*stares into the void*'} (click me if you dare)`,
+        night_idle:    '🌙 Cats own the night. You\'re just visiting.',
+        running:       '🐱 I\'m not running. I\'m choosing to move quickly.',
+        happy_running: '🐱 ...okay fine, this is kind of fun.',
+        barking:       '🐱 MRRROW!',
+        sleeping:      '💤 Do not disturb. I mean it.',
+        worried:       '🐱 Errors. How disappointing.',
+        scared:        '🐱 This many errors is beneath both of us.',
+        tired:         '🐱 I\'ve been watching you struggle for a while now.',
+        jumping:       '🐱 I meant to do that.',
+      };
+      return messages[state];
     }
-    const barkSound = petType === 'cow' ? 'MOO MOO!' : 'WOOF WOOF!';
+
+    if (petType === 'cow') {
+      const messages: Record<PetState, string> = {
+        idle:          `🐄 ${name ? `${name} says: Moo.` : 'Moo.'} Click me to moo louder.`,
+        night_idle:    '🌙 Even cows need sleep... just saying.',
+        running:       '🐄 Mooooving right along!',
+        happy_running: '🐄 MOO MOO MOO! You\'re doing great!',
+        barking:       '🐄 MOOOOOOO!!',
+        sleeping:      '💤 Zzzz... moo... zzzz...',
+        worried:       '🐄 Moo? (something seems wrong)',
+        scared:        '🐄 MOO MOO MOO!! TOO MANY ERRORS!!',
+        tired:         '🐄 ...moooo. Take a break, friend.',
+        jumping:       '🐄 A jumping cow! Historic.',
+      };
+      return messages[state];
+    }
+
+    // CHANGE 3: monkey hover messages block added before dog default
+    if (petType === 'monkey') {
+      const messages: Record<PetState, string> = {
+        idle:          `🐒 ${name ? `${name} is monkeying around!` : 'Monkeying around!'} Click me!`,
+        night_idle:    '🌙 Monkeys sleep too... but I\'m watching you.',
+        running:       '🐒 Swinging through your code!',
+        happy_running: '🐒✨ OOH OOH! You\'re crushing it!!',
+        barking:       '🐒 OOH OOH AHH AHH!!',
+        sleeping:      '💤 Zzz... *snores softly*...',
+        worried:       '🐒 Ooh? Errors detected...',
+        scared:        '🐒 AAHH!! TOO MANY ERRORS!!',
+        tired:         '🐒 ...ook. Seriously, take a break.',
+        jumping:       '🐒 WHEEE!! Monkey jump!!',
+      };
+      return messages[state];
+    }
+
+    // Dog (default) — eager and loyal
     const messages: Record<PetState, string> = {
-      idle:          `${icon} Just chilling... Press Ctrl+Alt+B to make me bark!`,
-      night_idle:    '🌙 Late night coding? Please take care of yourself...',
-      running:       `${icon} Running alongside your code!`,
-      happy_running: `${icon}✨ You're on a roll! Keep going!`,
-      barking:       `${icon} ${barkSound}`,
-      sleeping:      '💤 Zzz... (start typing to wake me up)',
-      worried:       `😟 There are errors... I'm worried.`,
-      scared:        '😱 TOO MANY ERRORS! I\'m hiding!',
-      tired:         '😩 You\'ve been coding for a while. Take a break!',
-      jumping:       `${icon} *boing!*`,
+      idle:          `🐶 ${name ? `${name} is chillin'!` : "Just chillin'!"} Click me or press Ctrl+Alt+B!`,
+      night_idle:    '🌙 Late night? I\'m here for you, always.',
+      running:       '🐶 Running alongside your code! Let\'s go!',
+      happy_running: '🐶✨ You\'re on a roll! Best human ever!!',
+      barking:       '🐶 WOOF WOOF!!',
+      sleeping:      '💤 Zzz... (start typing to wake me up!)',
+      worried:       '😟 Errors... I\'m worried. You got this though!',
+      scared:        '😱 TOO MANY ERRORS!! Please fix them!!',
+      tired:         '😩 You\'ve been at this a while. Take a break!',
+      jumping:       '🐶 BOING!!',
     };
-    return messages[this.context.state];
+    return messages[state];
+  }
+
+  async renamePet(): Promise<void> {
+    const input = await vscode.window.showInputBox({
+      title:       '$(paw-icon) Name your pet',
+      prompt:      'Give your companion a name (leave blank to reset)',
+      value:       this.petName,
+      placeHolder: 'e.g. Biscuit, Mochi, Debug...',
+    });
+    if (input === undefined) { return; }   // user pressed Escape
+    this.petName = input.trim();
+    this.extensionContext.globalState.update('petName', this.petName);
+    this.syncStatusBar();
+    if (this.petName) {
+      vscode.window.setStatusBarMessage(`🐾 Hello, ${this.petName}!`, 2000);
+    }
   }
 
   private checkNightMode(): boolean {

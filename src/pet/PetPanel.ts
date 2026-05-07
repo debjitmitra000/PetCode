@@ -7,6 +7,7 @@ export class PetPanel {
 
   onToggle:    (() => void)             | null = null;
   onSwitchPet: ((pet: PetType) => void) | null = null;
+  onRename:    (() => void)             | null = null;
 
   constructor(_extensionPath: string) {}
 
@@ -26,13 +27,13 @@ export class PetPanel {
   // ── Main menu ─────────────────────────────────────────────────────────────────
 
   private async showMenu(): Promise<void> {
-    // $(dog-icon) = U+E001, $(cat-icon) = U+E002, $(cow-icon) = U+E003
-    // $(paw-icon) = U+E000, used for the menu title and status bar
     let petIcon: string;
     if (this.currentPet === 'cat') {
       petIcon = '$(cat-icon)';
     } else if (this.currentPet === 'cow') {
       petIcon = '$(cow-icon)';
+    } else if (this.currentPet === 'monkey') {
+      petIcon = '$(monkey-icon)';
     } else {
       petIcon = '$(dog-icon)';
     }
@@ -55,6 +56,11 @@ export class PetPanel {
         action:      'switch',
       },
       {
+        label:       '$(edit)  Name your pet',
+        description: 'Give your companion a name',
+        action:      'rename',
+      },
+      {
         label:       '$(megaphone)  Bark!',
         description: 'Ctrl+Alt+B',
         action:      'bark',
@@ -72,6 +78,7 @@ export class PetPanel {
     switch (pick.action) {
       case 'toggle': this.onToggle?.();          break;
       case 'switch': await this.showPetPicker(); break;
+      case 'rename': this.onRename?.();          break;
       case 'bark':   vscode.commands.executeCommand('PetCode.bark'); break;
     }
   }
@@ -96,6 +103,11 @@ export class PetPanel {
         label:       '$(cow-icon)  Cow',
         description: this.currentPet === 'cow' ? '$(check) Active' : '',
         petId:       'cow',
+      },
+      {
+        label:       '$(monkey-icon)  Monkey',
+        description: this.currentPet === 'monkey' ? '$(check) Active' : '',
+        petId:       'monkey',
       },
     ];
 
