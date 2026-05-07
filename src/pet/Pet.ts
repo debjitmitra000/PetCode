@@ -685,7 +685,7 @@ export class Pet {
     // Each pet has its own voice
     if (petType === 'cat') {
       const messages: Record<PetState, string> = {
-        idle:          `🐱 ${name ? `${name} stares into the void.` : '*stares into the void*'} (click me if you dare)`,
+        idle:          `🐱 ${name ? `${name} stares into the void.` : '*stares into the void*'}`,
         night_idle:    '🌙 Cats own the night. You\'re just visiting.',
         running:       '🐱 I\'m not running. I\'m choosing to move quickly.',
         happy_running: '🐱 ...okay fine, this is kind of fun.',
@@ -701,7 +701,7 @@ export class Pet {
 
     if (petType === 'cow') {
       const messages: Record<PetState, string> = {
-        idle:          `🐄 ${name ? `${name} says: Moo.` : 'Moo.'} Click me to moo louder.`,
+        idle:          `🐄 ${name ? `${name} says: Moo.` : 'Moo.'}`,
         night_idle:    '🌙 Even cows need sleep... just saying.',
         running:       '🐄 Mooooving right along!',
         happy_running: '🐄 MOO MOO MOO! You\'re doing great!',
@@ -718,7 +718,7 @@ export class Pet {
     // CHANGE 3: monkey hover messages block added before dog default
     if (petType === 'monkey') {
       const messages: Record<PetState, string> = {
-        idle:          `🐒 ${name ? `${name} is monkeying around!` : 'Monkeying around!'} Click me!`,
+        idle:          `🐒 ${name ? `${name} is monkeying around!` : 'Monkeying around!'}`,
         night_idle:    '🌙 Monkeys sleep too... but I\'m watching you.',
         running:       '🐒 Swinging through your code!',
         happy_running: '🐒✨ OOH OOH! You\'re crushing it!!',
@@ -734,7 +734,7 @@ export class Pet {
 
     // Dog (default) — eager and loyal
     const messages: Record<PetState, string> = {
-      idle:          `🐶 ${name ? `${name} is chillin'!` : "Just chillin'!"} Click me or press Ctrl+Alt+B!`,
+      idle:          `🐶 ${name ? `${name} is chillin'!` : "Just chillin'!"}`,
       night_idle:    '🌙 Late night? I\'m here for you, always.',
       running:       '🐶 Running alongside your code! Let\'s go!',
       happy_running: '🐶✨ You\'re on a roll! Best human ever!!',
