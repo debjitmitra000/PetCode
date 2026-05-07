@@ -283,3 +283,87 @@ Static image. Dog completely stops moving when this triggers. A tooltip appears 
 ├── sleep_2.png
 ├── tired.png
 └── worried.png
+
+Here's everything you need to know to build and package your **PetCode** VS Code extension:
+
+---
+
+## Step 1 — Install dependencies (first time or after pulling fresh)
+
+```bash
+npm install
+```
+
+---
+
+## Step 2 — Compile TypeScript → `out/` folder
+
+```bash
+npm run compile
+```
+
+This runs `tsc -p ./` and outputs compiled JS into the `out/` folder (your `main` is `./out/extension.js`). You need to do this every time you edit `.ts` files.
+
+**Optional — watch mode** (auto-recompiles on every save while developing):
+```bash
+npm run watch
+```
+
+---
+
+## Step 3 — Package into a `.vsix` file
+
+First, install `vsce` if you don't have it:
+```bash
+npm install -g @vscode/vsce
+```
+
+Then package:
+```bash
+vsce package
+```
+
+This creates a file like `petcode-debjitmitra000-0.1.5.vsix` in the same folder.
+
+---
+
+## Step 4 — Install the `.vsix` locally to test
+
+```bash
+code --install-extension petcode-debjitmitra000-0.1.5.vsix
+```
+
+---
+
+## Step 5 — Publish new version to VS Code Marketplace
+
+```bash
+vsce publish
+```
+
+Or if you want to bump the version and publish in one go:
+```bash
+vsce publish patch   # 0.1.5 → 0.1.6
+vsce publish minor   # 0.1.5 → 0.2.0
+vsce publish major   # 0.1.5 → 1.0.0
+```
+
+> You'll need to be logged in: `vsce login debjitmitra000` (uses your Personal Access Token from Azure DevOps)
+
+---
+
+## Quick summary for a typical edit-and-release cycle
+
+```bash
+# 1. Edit your .ts files
+# 2. Compile
+npm run compile
+
+# 3. Package
+vsce package
+
+# 4. Publish
+vsce publish
+```
+
+That's the full flow every time you make changes!
