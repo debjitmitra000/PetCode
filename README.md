@@ -16,7 +16,7 @@ It lives entirely inside the editor as a text decoration — no panels, no sideb
 
 ## Features
 
-- 🐕🐈🐄🐒🐇🐏 **Dog, cat, cow, monkey, rabbit, or sheep** — switch your companion any time from the settings menu
+- 🐕🐈🐄🐒🐇🐑 **Dog, cat, cow, monkey, rabbit, or sheep** — switch your companion any time from the settings menu
 - 💾 **Remembers your pet** — your chosen pet and name persist across VS Code restarts
 - 🏃 **Follows your cursor** — moves smoothly line by line as you navigate
 - ✨ **Happy running** — gets excited when you type for 4+ seconds straight
