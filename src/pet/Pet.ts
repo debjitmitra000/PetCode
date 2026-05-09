@@ -218,8 +218,12 @@ export class Pet {
 
   private syncStatusBar(): void {
     const petType  = this.animationManager.getPetType();
-    // CHANGE 1: added monkey to petLabel
-    const petLabel = petType === 'cat' ? 'Cat' : petType === 'cow' ? 'Cow' : petType === 'monkey' ? 'Monkey' : 'Dog';
+    const petLabel = petType === 'cat'    ? 'Cat'
+                   : petType === 'cow'    ? 'Cow'
+                   : petType === 'monkey' ? 'Monkey'
+                   : petType === 'rabbit' ? 'Rabbit'
+                   : petType === 'sheep'  ? 'Sheep'
+                   : 'Dog';
     const name     = this.petName ? this.petName : petLabel;
 
     const stateEmoji: Record<PetState, string> = {
@@ -274,11 +278,12 @@ export class Pet {
       // Trigger when cursor jumps to or past the pet column (new arrival only)
       if (cursorCol >= petCol && prevCol < petCol && this.temporaryStateTimer === null) {
         this.triggerBark();
-        // CHANGE 2: added monkey bark message
         const petType = this.animationManager.getPetType();
         const msg = petType === 'cat'    ? '🐱 ...fine.'
                   : petType === 'cow'    ? '🐄 MOOOO!'
                   : petType === 'monkey' ? '🐒 OOH OOH AHH!'
+                  : petType === 'rabbit' ? '🐰 SQUEAK!'
+                  : petType === 'sheep'  ? '🐑 BAAAA!'
                   :                       '🐶 WOOF!';
         vscode.window.setStatusBarMessage(msg, 2000);
         return;
@@ -715,7 +720,6 @@ export class Pet {
       return messages[state];
     }
 
-    // CHANGE 3: monkey hover messages block added before dog default
     if (petType === 'monkey') {
       const messages: Record<PetState, string> = {
         idle:          `🐒 ${name ? `${name} is monkeying around!` : 'Monkeying around!'}`,
@@ -728,6 +732,38 @@ export class Pet {
         scared:        '🐒 AAHH!! TOO MANY ERRORS!!',
         tired:         '🐒 ...ook. Seriously, take a break.',
         jumping:       '🐒 WHEEE!! Monkey jump!!',
+      };
+      return messages[state];
+    }
+
+    if (petType === 'rabbit') {
+      const messages: Record<PetState, string> = {
+        idle:          `🐰 ${name ? `${name} wiggles their nose.` : '*wiggles nose*'}`,
+        night_idle:    '🌙 Rabbits are most active at dusk... perfect timing.',
+        running:       '🐰 Hippity hoppity through your code!',
+        happy_running: '🐰✨ BOING BOING BOING! You\'re amazing!!',
+        barking:       '🐰 SQUEAK SQUEAK!!',
+        sleeping:      '💤 Zzz... *twitches ears*...',
+        worried:       '🐰 *thumps foot nervously* Errors...',
+        scared:        '🐰 EEK!! TOO MANY ERRORS!! *hides*',
+        tired:         '🐰 ...thump. Please take a carrot break.',
+        jumping:       '🐰 BOING!! Look at me go!!',
+      };
+      return messages[state];
+    }
+
+    if (petType === 'sheep') {
+      const messages: Record<PetState, string> = {
+        idle:          `🐑 ${name ? `${name} grazes peacefully.` : '*grazes peacefully*'}`,
+        night_idle:    '🌙 Counting sheep? I\'m right here.',
+        running:       '🐑 Fluffy and surprisingly fast!',
+        happy_running: '🐑✨ BAAA BAAA! You\'re on a roll!!',
+        barking:       '🐑 BAAAAA!!',
+        sleeping:      '💤 Zzz... *soft woolly snores*...',
+        worried:       '🐑 Baa? Something\'s not right...',
+        scared:        '🐑 BAAA BAAA!! TOO MANY ERRORS!!',
+        tired:         '🐑 ...baa. Even sheep need rest, friend.',
+        jumping:       '🐑 A sheep can jump too, you know!',
       };
       return messages[state];
     }

@@ -34,6 +34,10 @@ export class PetPanel {
       petIcon = '$(cow-icon)';
     } else if (this.currentPet === 'monkey') {
       petIcon = '$(monkey-icon)';
+    } else if (this.currentPet === 'rabbit') {
+      petIcon = '$(rabbit-icon)';
+    } else if (this.currentPet === 'sheep') {
+      petIcon = '$(sheep-icon)';
     } else {
       petIcon = '$(dog-icon)';
     }
@@ -108,6 +112,16 @@ export class PetPanel {
         label:       '$(monkey-icon)  Monkey',
         description: this.currentPet === 'monkey' ? '$(check) Active' : '',
         petId:       'monkey',
+      },
+      {
+        label:       '$(rabbit-icon)  Rabbit',
+        description: this.currentPet === 'rabbit' ? '$(check) Active' : '',
+        petId:       'rabbit',
+      },
+      {
+        label:       '$(sheep-icon)  Sheep',
+        description: this.currentPet === 'sheep' ? '$(check) Active' : '',
+        petId:       'sheep',
       },
     ];
 
