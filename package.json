@@ -2,7 +2,7 @@
   "name": "petcode-debjitmitra000",
   "displayName": "PetCode",
   "description": "A virtual pet that lives inside your VS Code editor — reacts to your typing, errors, idle time, and even the hour of night.",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "publisher": "debjitmitra000",
   "icon": "icon.png",
   "license": "MIT",
